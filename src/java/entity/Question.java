@@ -17,22 +17,12 @@ public class Question {
     private String questionText;
     private String choices;
     private int answer;
-    private List<Tag> questionTags;
     
     public Question(String idIn, String textIn, String choicesIn, int answerIn){
         questionId = idIn;
         questionText = textIn;
         choices = choicesIn;
         answer = answerIn;
-        questionTags = new ArrayList<Tag>();
-    }
-    
-    public void addTag(Tag tagIn){
-        questionTags.add(tagIn);
-    }
-    
-    public void addTags(List<Tag> tagsIn){
-        questionTags = tagsIn;
     }
     
     public String getQId(){
@@ -49,10 +39,6 @@ public class Question {
     
     public int getAnswer(){
         return answer;
-    }
-    
-    public List<Tag> getTags(){
-        return questionTags;
     }
     
 }
