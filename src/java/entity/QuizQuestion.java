@@ -30,6 +30,5 @@ public class QuizQuestion {
     
     public int getPoints(){
         return this.points;
-    }
-        
+    }   
 }
