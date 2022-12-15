@@ -4,6 +4,7 @@ package DB;
 import DB.QuestionAccessor;
 import DB.ConnectionManager;
 import DB.ConnectString;
+import entity.Question;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import entity.Quiz;
+import entity.QuizQuestion;
 public class QuizAccessor {
     private static PreparedStatement getByIDStatement = null;
     private static Connection conn = null;
@@ -45,14 +47,15 @@ public class QuizAccessor {
 
         try {
             init();
-            QuestionAccessor quizAccess = new QuestionAccessor();
             //$stmt = $this->conn->prepare($selectString);
-            ResultSet rs=getByIDStatement.executeQuery();
+            PreparedStatement prep = conn.prepareStatement(selectString);
+            ResultSet rs=prep.executeQuery();
             while (rs.next()){
                 String id = rs.getString("quizID");
                 String title = rs.getString("quizTitle");
-                Quiz item = new Quiz(id, title);
-                item.addQuestion(quizAccess.getQuestionsByID(id));
+                List<Question> q = QuestionAccessor.getQuestionsByID(id);
+                 List<Integer> points = QuizQuestionAccessor.getPoints(id);
+                Quiz item = new Quiz(id, title, q, points);
                 result.add(item);
             }
         }
@@ -63,8 +66,28 @@ public class QuizAccessor {
         return result;
     }
 
-    public List<Quiz> getAllQuizzes() {
-        List<Quiz> li= this.getQuizzesByQuery(selectAllStatement.toString());
-        return li;
+    public static List<Quiz> getAllQuizzes() {
+       List<Quiz> result = new ArrayList<>();
+
+        try {
+            init();
+            PreparedStatement prep = conn.prepareStatement("select * from quiz");
+            ResultSet rs=prep.executeQuery();
+            while (rs.next()){
+                String id = rs.getString("quizID");
+                String title = rs.getString("quizTitle");
+                List<Question> q = QuestionAccessor.getQuestionsByID(id);
+                List<Integer> points = QuizQuestionAccessor.getPoints(id);
+                Quiz item = new Quiz(id, title, q, points);
+                //System.out.println(item.getQuestions());
+                result.add(item);
+            }
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return result;
     }
 } 
+
