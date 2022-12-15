@@ -32,3 +32,4 @@ public class QuizQuestion {
         return this.points;
     }   
 }
+
