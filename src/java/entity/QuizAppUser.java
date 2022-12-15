@@ -12,12 +12,10 @@ public class QuizAppUser {
     
     private String username;
     private String password;
-    private Permission permissionLevel;
     
-    public QuizAppUser(String userIn, String passwordIn, Permission lvlIn){
+    public QuizAppUser(String userIn, String passwordIn){
         username = userIn;
         password = passwordIn;
-        permissionLevel = lvlIn;
     }
     
     public String getUsername(){
@@ -27,9 +25,5 @@ public class QuizAppUser {
     //TODO change to a more secure format later
     public String getpassword(){
         return password;
-    }
-    
-    public Permission getPermission(){
-        return permissionLevel;
     }
 }

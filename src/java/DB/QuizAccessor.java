@@ -30,8 +30,8 @@ public class QuizAccessor {
     private static void init() throws SQLException {
         if (conn == null) {
             try {
-                conn = ConnectionManager.getConnection(ConnectString.getConnectionString(), ConnectString.getUser(), ConnectString.getPassword());
-            } catch (ClassNotFoundException ex) {
+                conn = ConnectionManager.getConnection();
+            } catch (Exception ex) {
                 Logger.getLogger(QuizAccessor.class.getName()).log(Level.SEVERE, null, ex);
             }
             getByIDStatement = conn.prepareStatement("select quizquestion.quizID,quizTitle, quizquestion.questionID, questionText, points from quizquestion \n" +

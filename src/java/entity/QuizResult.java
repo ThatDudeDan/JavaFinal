@@ -26,15 +26,15 @@ public class QuizResult {
     
     //TODO add override to construct a QuizResult with a premade list of answers
     public QuizResult(
-            String idIn, String quizIn, String userIn, List<String> userAnswers, Timestamp startTimeIn, Timestamp endTimeIn,
+            String idIn, String quizIn, String userIn, List<String> inUserAnswers, Timestamp startTimeIn, Timestamp endTimeIn,
             int numeratorIn, int denumeratorIn){
         
         resultId = idIn;
-        quizIn = quizIn;
+        quizID = quizIn;
         username = userIn;
         quizStartTime = startTimeIn;
         quizEndTime = endTimeIn;
-        userAnswers = new ArrayList<String>();
+        userAnswers = inUserAnswers;
         scoreNumerator = numeratorIn;
         scoreDenumerator = denumeratorIn;
     }
@@ -44,8 +44,8 @@ public class QuizResult {
     }
     
     //TODO finish this method.
-    public void calculateTimeTaken(){
-        
+    public long calculateTimeTaken(){
+        return (quizEndTime.getTime() - quizStartTime.getTime() / 1000);
     }
     
     public void addAnswer(String answerIn){
@@ -56,16 +56,16 @@ public class QuizResult {
         userAnswers = answerIn;
     }
     
-    public int getId(){
+    public String getId(){
         return resultId;
     }
     
-    public Quiz getQuiz(){
-        return completedQuiz;
+    public String getQuiz(){
+        return quizID;
     }
     
-    public QuizAppUser getUser(){
-        return user;
+    public String getUser(){
+        return username;
     }
     
     public Date getStartTime(){
