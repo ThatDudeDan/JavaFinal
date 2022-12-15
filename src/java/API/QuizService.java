@@ -54,10 +54,16 @@ public class QuizService extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
+   @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try ( PrintWriter out = response.getWriter()) {
+            if(request.getPathInfo()==null){
+            List<Quiz> allItems = QuizAccessor.getAllQuizzes();
+            Gson g = new Gson();
+            out.println(g.toJson(allItems));
+            }
+        }
     }
 
     /**
