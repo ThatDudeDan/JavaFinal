@@ -4,6 +4,7 @@
  */
 package entity;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,23 +15,23 @@ import java.util.List;
  */
 public class QuizResult {
     
-    private int resultId;
-    private Quiz completedQuiz;
-    private QuizAppUser user;
-    private Date quizStartTime;
-    private Date quizEndTime;
+    private String resultId;
+    private String quizID;
+    private String username;
     private List<String> userAnswers;
+    private Timestamp quizStartTime;
+    private Timestamp quizEndTime;
     private int scoreNumerator;
     private int scoreDenumerator;
     
     //TODO add override to construct a QuizResult with a premade list of answers
     public QuizResult(
-            int idIn, Quiz quizIn, QuizAppUser userIn, Date startTimeIn, Date endTimeIn,
+            String idIn, String quizIn, String userIn, List<String> userAnswers, Timestamp startTimeIn, Timestamp endTimeIn,
             int numeratorIn, int denumeratorIn){
         
         resultId = idIn;
-        completedQuiz = quizIn;
-        user = userIn;
+        quizIn = quizIn;
+        username = userIn;
         quizStartTime = startTimeIn;
         quizEndTime = endTimeIn;
         userAnswers = new ArrayList<String>();
