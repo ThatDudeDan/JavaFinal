@@ -15,6 +15,7 @@ public class Quiz {
     private String quizId;
     private String quizTitle;
     private List<Question> quizQuestions;
+    private List<Integer> points;
     
     
     public Quiz(String idIn, String titleIn){
@@ -22,21 +23,13 @@ public class Quiz {
         quizTitle = titleIn;
     }
     
-    public Quiz(String idIn, String titleIn, List<Question> questionsIn){
+    public Quiz(String idIn, String titleIn, List<Question> questionsIn, List<Integer> inpoints){
         quizId = idIn;
         quizTitle = titleIn;
         quizQuestions = questionsIn;
+        points=inpoints;
         
-    }
-    
-    public void addQuestion(Question qIn){
-        quizQuestions.add(qIn);
-    }
-    
-    public void addQuestion(List<Question> qIn){
-        quizQuestions = qIn;
-    }
-    
+    }    
     public String getQuizId(){
         return quizId;
     }
@@ -48,5 +41,7 @@ public class Quiz {
     public List<Question> getQuestions(){
         return quizQuestions;
     }
-    
+    public List<Integer> getPoints(){
+        return points;
+    }
 }
