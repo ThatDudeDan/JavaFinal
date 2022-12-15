@@ -1,11 +1,6 @@
-package entity;
+package DB;
 
 public class ConnectString {
-    private int id;
-    private String title;
-    private String artist;
-    private double price;
-    private boolean issold;
 
 public static String getConnectionString()
 {
