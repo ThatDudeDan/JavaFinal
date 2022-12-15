@@ -37,27 +37,24 @@ public class quizResultAccessor {
         private ArrayList<QuizResult> getQuizResultsbyQuery() {
             ArrayList<QuizResult> allResults = new ArrayList<QuizResult>();
             try {
-          ResultSet rs = selectAllStatement.executeQuery();
-            while (rs.next()) {
-                String resultID = rs.getString("resultID");
-                String quizID = rs.getString("quizID");
-                String username = rs.getString("username");
-                Timestamp quizStartTime = rs.getTimestamp("quizStartTime");
-                Timestamp quizEndTime = rs.getTimestamp("quizEndTime");
-                String userAnswers = rs.getString("userAnswers");
-                String[] answers = userAnswers.split("|");
-                List<String> userAnswer = Arrays.asList(answers);  
-                int scoreNum = rs.getInt("scoreNumerator");
-                int scoreDen = rs.getInt("scoreDenominator");
-                QuizResult result = new QuizResult(resultID, quizID, username, userAnswer, quizStartTime, quizEndTime, scoreNum, scoreDen);
-                allResults.add(result);
+                ResultSet rs = selectAllStatement.executeQuery();
+                while (rs.next()) {
+                    String resultID = rs.getString("resultID");
+                    String quizID = rs.getString("quizID");
+                    String username = rs.getString("username");
+                    Timestamp quizStartTime = rs.getTimestamp("quizStartTime");
+                    Timestamp quizEndTime = rs.getTimestamp("quizEndTime");
+                    String userAnswers = rs.getString("userAnswers");
+                    String[] answers = userAnswers.split("|");
+                    List<String> userAnswer = Arrays.asList(answers);
+                    int scoreNum = rs.getInt("scoreNumerator");
+                    int scoreDen = rs.getInt("scoreDenominator");
+                    QuizResult result = new QuizResult(resultID, quizID, username, userAnswer, quizStartTime, quizEndTime, scoreNum, scoreDen);
+                    allResults.add(result);
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
             }
             return allResults;
-            } catch (SQLException ex) 
-            {
-            System.out.println(ex.getMessage());
-            };
-    
-
-   
+    }
 }
