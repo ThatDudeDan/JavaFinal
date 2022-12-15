@@ -4,26 +4,24 @@
  */
 package API;
 
-import DB.quizResultAccessor;
+import DB.userAccessor;
+import entity.QuizAppUser;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import entity.QuizResult;
-import java.util.List;
-import com.google.gson.Gson;
-import DB.quizResultAccessor;
-import com.mysql.cj.Session;
 import javax.servlet.http.HttpSession;
+
 /**
  *
  * @author cliff
  */
-@WebServlet(name = "QuizResultService", urlPatterns = {"/quizResultService/Items", "/quizResultService/Items/*"})
-public class QuizResultService extends HttpServlet {
+@WebServlet(name = "userService", urlPatterns = {"/userService/Items", "/userService/Items/*"})
+public class userService extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +40,10 @@ public class QuizResultService extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet QuizResultService</title>");            
+            out.println("<title>Servlet userService</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet QuizResultService at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet userService at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,12 +61,25 @@ public class QuizResultService extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try (PrintWriter out = response.getWriter()) {
-            DB.quizResultAccessor qra = new quizResultAccessor();
-            List<QuizResult> allItems = qra.getQuizResultsbyQuery();
+       try (PrintWriter out = response.getWriter()) {
+            DB.userAccessor qua = new userAccessor();
+            System.out.print(out);
+            QuizAppUser user = qua.getUserByID(request.getParameter("user"));
+            System.out.println("==================");
+            System.out.println("==================");
+            System.out.println("=====" + request.getParameter("user")+ "=========");
+            System.out.println("==================");
+            System.out.println("==================");
             HttpSession sesh = request.getSession();
-            sesh.setAttribute("allQuizResults", allItems);
-           
+
+            if (user != null)
+            {
+               sesh.setAttribute("activeUser", user);
+               out.print("Valid");
+            }
+            else {
+              out.print("Invalid");  
+            }
         }
         catch (Exception ex) {
             System.out.println(ex.getMessage());
