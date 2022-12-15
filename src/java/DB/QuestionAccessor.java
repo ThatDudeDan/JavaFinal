@@ -67,4 +67,27 @@ public class QuestionAccessor {
     public List<Question> getAllQuestion() {
         return getQuestionsByQuery("Select * from question");
     }
+     public List<Question> getQuestionsByID(String QuizID)
+    {
+   List<Question> result = new ArrayList<>();
+
+        try {
+            init();
+            getByIDStatement.setString(1, QuizID);
+            ResultSet results = getByIDStatement.executeQuery();
+            while(results.next()){
+                String id = results.getString("questionID");
+                String text = results.getString("questionText");
+                String choices = results.getString("choices");
+                int answer = results.getInt("answer");
+                result.add(new Question(id, text, choices, answer));
+            }
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+            result = new ArrayList<>();
+        }
+        
+        return result;
+    }
 }
