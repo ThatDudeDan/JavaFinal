@@ -1,9 +1,6 @@
 package DB;
 
 
-import DB.QuestionAccessor;
-import DB.ConnectionManager;
-import DB.ConnectString;
 import entity.Question;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,79 +11,88 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import entity.Quiz;
-import entity.QuizQuestion;
-public class QuizAccessor {
+import java.util.Date;
+import DB.ConnectString;
+import DB.ConnectionManager;
+public class QuestionAccessor {
     private static PreparedStatement getByIDStatement = null;
     private static Connection conn = null;
     private static PreparedStatement selectAllStatement = null;
     private static PreparedStatement deleteStatement = null;
     private static PreparedStatement insertStatement = null;
     private static PreparedStatement updateStatement = null;
+    private static PreparedStatement getQuestionsByIdString;
 
     // constructor is private - no instantiation allowed
-    private QuizAccessor() {
+    public QuestionAccessor() {
     }
 
     private static void init() throws SQLException {
         if (conn == null) {
             try {
-                conn = ConnectionManager.getConnection(ConnectString.getConnectionString(), ConnectString.getUser(), ConnectString.getPassword());
+              conn = ConnectionManager.getConnection(ConnectString.getConnectionString(), ConnectString.getUser(), ConnectString.getPassword());
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(QuizAccessor.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(QuestionAccessor.class.getName()).log(Level.SEVERE, null, ex);
             }
-            getByIDStatement = conn.prepareStatement("select quizquestion.quizID,quizTitle, quizquestion.questionID, questionText, points from quizquestion \n" +
-"inner join quiz on quizquestion.quizID = quiz.quizID inner join\n" +
-"question on quizquestion.questionID = question.questionID where quiz.quizID = :quizID\"");
-            selectAllStatement = conn.prepareStatement("select * from Quiz");
-            
+            getByIDStatement = conn.prepareStatement("select quizquestion.quizID, quiz.quizTitle, quizquestion.questionID, question.questionText, quizquestion.points, question.choices, question.answer\n" +
+"from question join quizquestion on question.questionID = quizquestion.questionID\n" +
+"join quiz on quizquestion.quizID = quiz.quizID\n" +
+"where quiz.quizID = ?");
+            selectAllStatement = conn.prepareStatement("select * from songitems");
+            deleteStatement = conn.prepareStatement("delete from songitems where songID = ?");
+            insertStatement = conn.prepareStatement("insert into songitems values (?,?,?,?,?)");
+            updateStatement = conn.prepareStatement("update songitems set title = ?, Artist = ?, Price = ?, isSold = ? where songID = ?");
         }
     }
 //
-       private static List<Quiz> getQuizzesByQuery(String selectString) {
-        List<Quiz> result = new ArrayList<>();
+       private static List<Question> getQuestionsByQuery(String selectString) {
+        List<Question> result = new ArrayList<>();
 
         try {
             init();
-            //$stmt = $this->conn->prepare($selectString);
-            PreparedStatement prep = conn.prepareStatement(selectString);
-            ResultSet rs=prep.executeQuery();
-            while (rs.next()){
-                String id = rs.getString("quizID");
-                String title = rs.getString("quizTitle");
-                List<Question> q = QuestionAccessor.getQuestionsByID(id);
-                 List<Integer> points = QuizQuestionAccessor.getPoints(id);
-                Quiz item = new Quiz(id, title, q, points);
-                result.add(item);
+            PreparedStatement stmt = conn.prepareStatement(selectString);
+            ResultSet results = stmt.executeQuery();
+            while(results.next()){
+                String id = results.getString("questionID");
+                String text = results.getString("questionText");
+                String choices = results.getString("choices");
+                int answer = results.getInt("answer");
+                result.add(new Question(id, text, choices, answer));
             }
         }
-        catch (Exception e) {
-            e.getMessage();
-        }
-
-        return result;
-    }
-
-    public static List<Quiz> getAllQuizzes() {
-       List<Quiz> result = new ArrayList<>();
-
-        try {
-            init();
-            PreparedStatement prep = conn.prepareStatement("select * from quiz");
-            ResultSet rs=prep.executeQuery();
-            while (rs.next()){
-                String id = rs.getString("quizID");
-                String title = rs.getString("quizTitle");
-                List<Question> q = QuestionAccessor.getQuestionsByID(id);
-                List<Integer> points = QuizQuestionAccessor.getPoints(id);
-                Quiz item = new Quiz(id, title, q, points);
-                //System.out.println(item.getQuestions());
-                result.add(item);
-            }
-        }
-        catch (SQLException e) {
+        catch (SQLException e){
             System.out.println(e.getMessage());
+            result = new ArrayList<>();
         }
-
+        
         return result;
     }
-} 
+
+    public List<Question> getAllQuestion() {
+        return getQuestionsByQuery("Select * from question");
+    }
+    public static List<Question> getQuestionsByID(String QuizID)
+    {
+   List<Question> result = new ArrayList<>();
+
+        try {
+            init();
+            getByIDStatement.setString(1, QuizID);
+            ResultSet results = getByIDStatement.executeQuery();
+            while(results.next()){
+                String id = results.getString("questionID");
+                String text = results.getString("questionText");
+                String choices = results.getString("choices");
+                int answer = results.getInt("answer");
+                result.add(new Question(id, text, choices, answer));
+            }
+            System.out.println(result.get(0).getQId());
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+            result = new ArrayList<>();
+        }
+        
+        return result;
+    }
+}
