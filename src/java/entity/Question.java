@@ -19,10 +19,10 @@ public class Question {
     private int answer;
     
     public Question(String idIn, String textIn, String choicesIn, int answerIn){
-        questionId = idIn;
-        questionText = textIn;
-        choices = choicesIn;
-        answer = answerIn;
+        this.questionId = idIn;
+        this.questionText = textIn;
+        this.choices = choicesIn;
+        this.answer = answerIn;
     }
     
     public String getQId(){
