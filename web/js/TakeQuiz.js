@@ -70,6 +70,10 @@ buildQuiz();
 document.querySelectorAll("input[name=" + "Q" + CurrentQuestion + "]")[Number(answers[CurrentQuestion])].checked = true;
 
 }
+else
+{
+    alert("You can't go back.");
+}
 }
 
 function nextBtn()
@@ -86,6 +90,10 @@ answers[CurrentQuestion] = document.querySelector("input[name=" + "Q" + CurrentQ
   buildQuiz(); 
 document.querySelectorAll("input[name=" + "Q" + CurrentQuestion + "]")[Number(answers[CurrentQuestion])].checked = true;
 
+}
+else
+{
+        alert("You can't go forward more.");
 }
 }
 function buildQuiz()
@@ -126,15 +134,25 @@ function quizSubmit()
     let correct = 0;
     console.log("Test");
     let length = quiz["quizQuestions"].length;
+    if (CurrentQuestion === length-1)
+    {
+     if (!document.querySelector("input[name=" + "Q" + (length-1) + "]:checked"))
+     {
+         alert("All questions must be answered");
+         return;
+     }
+     else{
     answers[length-1] = document.querySelector("input[name=" + "Q" + (length-1) + "]:checked").value;
     document.querySelectorAll("input[name=" + "Q" + CurrentQuestion + "]")[Number(answers[length-1])].checked = true;
-    console.log(length);
+     }
+    }
+    if (answers.length < quiz["quizQuestions"].length)
+    {
+        alert("All questions must be answered");
+        return;
+    }
     
-        if (answers.length < length)
-        {
-            console.log("Answer the quizQuestions");
-            return;
-        }
+
     for (i = 0; i < length; i++)
     {
         if (Number(answers[i]) === quiz["quizQuestions"][i]["answer"])
