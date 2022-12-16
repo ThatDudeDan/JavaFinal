@@ -103,7 +103,7 @@ function buildQuiz()
         text+="</div>
     }
     text += "<br>" +"<div id='ResultsScore'>" + "The total score of the quiz: " + results["scoreNumerator"] + "/" + results["scoreDenumerator"] + "</div>";
-    text += "<br>" +"<div id='ResultsScore'>" + "The total score of the quiz: " + results["scoreNumerator"]  /  results["scoreDenumerator"] * 100 + "</div>";
+    text += "<br>" +"<div id='ResultsScore'>" + results["scoreNumerator"]  /  results["scoreDenumerator"] * 100 + "</div>";
       box.innerHTML=text
 }
 
