@@ -8,11 +8,28 @@ window.onload = function()
 {
       resultID = urlParams.get('resultsID');
       getResults();
+      document.querySelector("#resultReturn").addEventListener("click", loadQuizResults);
 }
 
 //Get Result via ID
 //Grab quizID out of Results
-
+ function loadQuizResults() {
+    let url = "quizResultService/Items";
+    let xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+            let resp = xmlhttp.responseText;
+            console.log(resp + "A");
+            if (resp.search("ERROR") >= 0) {
+                alert("could not complete request");
+            } else {
+              window.location.assign("DisplayResults.jsp");
+            }
+        }
+    };
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+}
 function getResults()
 {
 
