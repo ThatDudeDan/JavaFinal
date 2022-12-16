@@ -40,9 +40,16 @@ public class QuizResult {
     }
     
     public double calculateScore(){
-        return scoreNumerator/scoreDenumerator;
+        return ((double) scoreNumerator/scoreDenumerator)*100;
     }
-    
+    public int getNum()
+    {
+        return scoreNumerator;
+    }
+    public int getDen()
+    {
+        return scoreDenumerator;
+    }
     //TODO finish this method.
     public long calculateTimeTaken(){
         return (quizEndTime.getTime() - quizStartTime.getTime() / 1000);
@@ -68,16 +75,20 @@ public class QuizResult {
         return username;
     }
     
-    public Date getStartTime(){
+    public Timestamp getStartTime(){
         return quizStartTime;
     }
     
-    public Date getEndTime(){
+    public Timestamp getEndTime(){
         return quizEndTime;
     }
     
     public List<String> getUserAnswers(){
         return userAnswers;
+    }
+    public String getUserAnswersString()
+    {
+        return String.join("|", userAnswers);
     }
     
 }
