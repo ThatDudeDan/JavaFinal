@@ -163,8 +163,8 @@ function quizSubmit()
         } else
         {
             console.log(quiz["quizQuestions"][i]["answer"]);
-            //console.log("Holy fuck you got it wrong.");
-        }
+
+	}
     }
     console.log(userAnswers);
     console.log(correct);
