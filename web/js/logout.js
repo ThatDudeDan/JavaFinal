@@ -5,6 +5,7 @@ window.onload = function()
 
 function logoutUser()
 {
+    console.log("FOCAC");
     let url = "logout/";
     let xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
@@ -13,7 +14,7 @@ function logoutUser()
             console.log(resp);
             if (resp.includes("Out")) {
                 alert("Thank you for logging out.");
-                window.location.assign("index.html");
+                window.location.replace("index.html");
 
             } else {
                 
