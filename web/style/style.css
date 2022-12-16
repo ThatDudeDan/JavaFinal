@@ -1,0 +1,198 @@
+tr
+{
+    transition: all 0.4s;
+}
+p {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+.highlighted
+{
+    background-color: lightgreen;
+}
+.highlighted:hover
+{
+    background-color: yellow;
+}
+#questionPicks th
+{
+   border: solid 2px black;
+}
+#questionPicks table
+{
+   border: solid 2px black;
+   border-collapse: collapse;
+}
+.hidden {
+    display: none;
+}
+.show {
+    display: block;
+}
+#aggCont span{
+    font-size: 24px;
+    font-weight: bold;
+    width: 250px;
+    padding: 20px;
+}
+#aggCont {
+    background-color: white;
+    color: #6561fa;
+    padding: 20px;
+    border: solid thin black;    
+}
+#aggCont, #aggBtn{
+    text-align: center;
+    max-width: 50%;
+    margin: auto;
+    border-collapse: collapse;
+}
+#container
+{
+    border: solid thin black;
+    height: 500px;
+    width: 95%;
+    margin: auto;
+}
+.tabs {
+    float: left;
+    width: 200px;
+    background-color: green;
+}
+body{
+    background-color: #731fa1;
+}
+#quizContent{
+    color: white;
+}
+#QuizSubmit{
+    background-color: #6a9023;
+    color: white;
+    border: 1px solid rgb(29, 118, 251);
+    padding: 10px 24px;
+    cursor: pointer;
+    width: 10%;
+    margin: auto;
+    display:block;
+    float:left;
+
+}
+.question{
+    color: lightblue;
+    background-color: #6b9afc;
+    border: 2px solid black;
+    padding: 5px;
+    width: 600px;
+    height: 200px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+}
+img{
+    width: 150px;
+}
+#loginScreen
+{
+    font-size: 30px;
+    padding: 20px;
+    text-align: center;
+    margin:auto;
+    display: block;
+    background-color:lightcoral;
+    width:420px;
+    border: solid 5px rgb(240, 233, 25);
+    border-radius: 10px;
+    height:160px;
+}
+
+.loginPageButton{
+    background-color: #6a9023;
+    color: white;
+    border: 1px solid rgb(29, 118, 251);
+    padding: 10px 24px;
+    cursor: pointer;
+    width: 30%;
+    margin: auto;
+    display:block;
+    float:left;
+}
+.button:hover {
+    background-color: #74c6b3;
+}
+.header{
+    color:white;
+    margin-left: 10%;
+    text-align: center;
+    background-color: #6b9afc;
+    padding: 10px;
+    border: 5px solid black;
+    float: left;
+    width: 60%;
+}
+.results{
+    margin-top: 5px;
+    margin-left: 10%;
+    margin-bottom: 20px;
+    border: 5px solid black;
+    background-color: #6b9afc;
+    color:white;
+    width: 65%;
+    float: left;
+    min-height: 100vh;
+}
+.box{
+    border: 2px solid black;
+    padding: 5px;
+    width: 200px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    float: left;
+    display: block;
+    height: 300px
+}
+
+table {
+    background-color: blue;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+}
+
+table tr td, table tr th {
+    border: solid thin black;
+}
+
+table tr td {
+    background-color: green;
+    font-size: 20px;
+    padding: 10px;
+    text-align: center;
+}
+
+table tr th {
+    background-color: whitesmoke;
+    color: #6561fa;
+    text-decoration: underline;
+    font-size: 24px;
+    padding: 10px;
+}
+.register{
+    text-align: center;
+}
+.hidden {
+    display: none;
+}
+
+.formLabel {
+    width: 100px;
+    float: left;
+}
+#AddUpdatePanel {
+    background-color: purple;
+    color: white;
+    padding: 20px;
+}
+.menuList {
+    list-style: none;
+}
