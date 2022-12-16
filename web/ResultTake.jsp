@@ -16,6 +16,7 @@
     </head>
     <body>
         <a href="DisplayResults.jsp"><button>Display</button></a>
+        <button id="resultReturn">Return to results page</button>
         <div id="ResultScreen"></div>
     </body>
     <link rel="stylesheet" href="style/style.css">
