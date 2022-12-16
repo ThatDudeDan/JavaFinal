@@ -4,15 +4,47 @@
     Author     : cliff
 --%>
 
+<%@page import="entity.Quiz"%>
+<%@page import="entity.QuizResult"%>
+<%@page import="java.util.List"%>
+<%@page import="entity.QuizAppUser"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <link rel="stylesheet" href="style.css">
+        <script src="js/logout.js"></script>
+        <script src="js/displayQuizStuff.js"></script>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <button id="logoutBtn">Logout</button>
+        <% QuizAppUser username = (QuizAppUser) session.getAttribute("activeUser");%>
+        <span><%=username.getUsername()%></span>
+        <% List<Quiz> quizzes = (List<Quiz>) session.getAttribute("allQuizzes"); %>
+        <h1>View quiz results</h1>
+        <table id="resultsTable">
+            <div><input type="text" id="searchInput"></div>
+            <select name="search" id="searchChoice">
+                <option value="id">Quiz ID</option>
+                <option value="text">Text</option>
+            </select>
+            <button id="searchBtn"></button><button id="resetBtn">Reset</button>
+            <tr><th>QuizID</th><th>Quiz Title</th><th>Number of Questions</th><th>Points</th>
+                        <%
+                            for (Quiz m : quizzes) {
+                            int total = 0;
+                            for (int i = 0; i < m.getPoints().size(); i++) {
+                                total += m.getPoints().get(i);
+                            }
+                        %>
+                <tr>
+                    <td><%= m.getQuizId() %></td>
+                    <td><%= m.getQuizTitle() %></td>
+                    <td><%= m.getQuestions().size() %></td>
+                    <td><%= total %></td>
+                </tr>
+                <% } %>
+            </table>
     </body>
 </html>
