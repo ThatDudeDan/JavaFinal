@@ -30,7 +30,7 @@
                 <option value="text">Text</option>
             </select>
             <button id="searchBtn"></button><button id="resetBtn">Reset</button>
-            <tr><th>QuizID</th><th>Quiz Title</th><th>Number of Questions</th><th>Points</th>
+            <tr><th>QuizID</th><th>Quiz Title</th><th>Number of Questions</th><th>Points</th><th>Do Quiz</th>
                         <%
                             for (Quiz m : quizzes) {
                             int total = 0;
@@ -43,6 +43,7 @@
                     <td><%= m.getQuizTitle() %></td>
                     <td><%= m.getQuestions().size() %></td>
                     <td><%= total %></td>
+                    <td><input id="quidID" value="<%= m.getQuizId() %>" class="hidden"><button>Do quiz</button></td>
                 </tr>
                 <% } %>
             </table>
