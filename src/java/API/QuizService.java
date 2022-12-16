@@ -64,7 +64,9 @@ public class QuizService extends HttpServlet {
             throws ServletException, IOException {
         try ( PrintWriter out = response.getWriter()) {
             if(request.getPathInfo()==null){
-            List<Quiz> allItems = QuizAccessor.getAllQuizzes();
+                List<Quiz> allItems = QuizAccessor.getAllQuizzes();
+                HttpSession sesh = request.getSession();
+                sesh.setAttribute("allQuizzes", allItems);
             }
             else
             {
