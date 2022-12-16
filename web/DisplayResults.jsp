@@ -18,7 +18,7 @@
     </head>
     <body>
         <button id="logoutBtn">Logout</button>
-        <a href="mainMenu.jsp">Main Menu</a>
+        <a href="mainMenu.jsp"><button>Main Menu</button></a>
         <% QuizAppUser username = (QuizAppUser) session.getAttribute("activeUser");%>
         <span><%=username.getUsername()%></span>
         <% List<QuizResult> quizResults = (List<QuizResult>) session.getAttribute("allQuizResults"); %>
