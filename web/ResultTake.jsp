@@ -14,5 +14,7 @@
     </head>
     <body>
         <div id="ResultScreen"></div>
+        <button id="resultReturn">Return to results page</button>
+
     </body>
 </html>
