@@ -15,12 +15,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author cliff
  */
-@WebServlet(name = "QuizAccessor", urlPatterns = {"/QuizAccessor"})
+@WebServlet(name = "QuizService", urlPatterns = {"/QuizService/Items", "/QuizService/Items/*"})
 public class QuizService extends HttpServlet {
 
     /**
@@ -64,8 +65,17 @@ public class QuizService extends HttpServlet {
         try ( PrintWriter out = response.getWriter()) {
             if(request.getPathInfo()==null){
             List<Quiz> allItems = QuizAccessor.getAllQuizzes();
-            Gson g = new Gson();
-            out.println(g.toJson(allItems));
+            }
+            else
+            {
+                Quiz quiz = QuizAccessor.getQuizById(request.getPathInfo().substring(1));
+                Gson gson = new Gson();
+                System.out.println("============================");                
+                System.out.println("============================");
+                System.out.println(request.getPathInfo().substring(1));
+                                System.out.println("============================");
+                System.out.println("============================");
+                out.print(gson.toJson(quiz));
             }
         }
     }
