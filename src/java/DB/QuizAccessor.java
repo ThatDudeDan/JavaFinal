@@ -141,11 +141,11 @@ public class QuizAccessor {
     
     public static List<Quiz> searchQuizByText(String inText) {
        List<Quiz> result = new ArrayList<>();
-       inText += "%";
+       inText = "%" + inText + "%";
        System.out.println(inText);
         try {
             init();
-            PreparedStatement prep = conn.prepareStatement("select * from quiz join quizquestion on quiz quizID = quizquestion.quizid join question on quizquestion.questionID = question.questionID where questionText like ?");
+            PreparedStatement prep = conn.prepareStatement("select * from quiz where quizTitle like ?");
             prep.setString(1, inText);
             ResultSet rs=prep.executeQuery();
             while (rs.next()){
@@ -163,6 +163,6 @@ public class QuizAccessor {
         }
 
         return result;
-    }    
+    }
 } 
 
