@@ -13,7 +13,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <script src="js/logout.js"></script>
-        <link rel="stylesheet" href="style/style.css">
+        <link rel="stylesheet" href="style.css">
+
     </head>
     <body>
         <button id="logoutBtn">Logout</button>
@@ -34,8 +35,10 @@
                     <td><%= m.calculateTimeTaken() + " seconds"%></td>
                     <td><%= m.getUserAnswers() %></td>
                     <td><%= Math.round(m.calculateScore()) + "%"%></td>
+                    <td><button id="displayResult">Check Result</button></td>
                 </tr>
                 <% } %>
             </table>
+            <script src="js/resultsTable.js"></script>
     </body>
 </html>

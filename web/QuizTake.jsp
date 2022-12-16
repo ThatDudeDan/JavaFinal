@@ -16,7 +16,7 @@
     </head>
     <body>
         <% QuizAppUser username = (QuizAppUser) session.getAttribute("activeUser");%>
-        <span><%=username.getUsername()%></span>
+        <span id="User"><%=username.getUsername()%></span>
         <div id="quizContent"></div>
         <button id="prevBtn">Previous</button>
         <button id="nextBtn">Next</button>
