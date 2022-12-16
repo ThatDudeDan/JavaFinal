@@ -14,7 +14,6 @@ import java.util.List;
  * @author joe
  */
 public class QuizResult {
-    
     private String resultId;
     private String quizID;
     private String username;
@@ -28,7 +27,6 @@ public class QuizResult {
     public QuizResult(
             String idIn, String quizIn, String userIn, List<String> inUserAnswers, Timestamp startTimeIn, Timestamp endTimeIn,
             int numeratorIn, int denumeratorIn){
-        
         resultId = idIn;
         quizID = quizIn;
         username = userIn;
@@ -52,7 +50,7 @@ public class QuizResult {
     }
     //TODO finish this method.
     public long calculateTimeTaken(){
-        return (quizEndTime.getTime() - quizStartTime.getTime() / 1000);
+        return (quizEndTime.getTime() - quizStartTime.getTime()) / 1000;
     }
     
     public void addAnswer(String answerIn){
