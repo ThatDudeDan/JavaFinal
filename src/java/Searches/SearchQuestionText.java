@@ -52,7 +52,13 @@ public class SearchQuestionText extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+            try (PrintWriter out = response.getWriter()) {
+                String id = request.getPathInfo().substring(1);
+                List<Quiz> allItems = QuizAccessor.searchQuizByText(id);
+                System.out.println();
+                HttpSession sesh = request.getSession();
+                sesh.setAttribute("allQuizzes", allItems);
+        }
     }
 
     /**
@@ -66,13 +72,6 @@ public class SearchQuestionText extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try (PrintWriter out = response.getWriter()) {
-                String id = request.getPathInfo().substring(1);
-                List<Quiz> allItems = QuizAccessor.searchQuizByText(id);
-                System.out.println();
-                HttpSession sesh = request.getSession();
-                sesh.setAttribute("allQuizzes", allItems);
-        }
     }
 
     /**
