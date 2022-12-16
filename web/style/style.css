@@ -6,6 +6,10 @@ p {
     font-size: 16px;
     font-weight: bold;
 }
+#ResultsScore{
+    font-size: 20px;
+    font-weight: bold;
+}
 .data{
     text-align:left;
     background-color: indigo;
