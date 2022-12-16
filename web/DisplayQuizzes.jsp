@@ -15,7 +15,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <script src="js/logout.js"></script>
-        <script src="js/displayQuizStuff.js"></script>
+        <script src="js/displayQuizStuff.js"></script>'
+        <link rel="stylesheet" href="style/style.css">
     </head>
     <body>
         <button id="logoutBtn">Logout</button>
