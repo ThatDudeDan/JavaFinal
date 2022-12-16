@@ -29,6 +29,23 @@ function handleRowClick(e) {
     document.querySelector("#DeleteButton").removeAttribute("disabled");
     document.querySelector("#UpdateButton").removeAttribute("disabled");
 }
+function loadQuizes () {
+    let url = "QuizService/Items";
+    let xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+            let resp = xmlhttp.responseText;
+            console.log(resp + "A");
+            if (resp.search("ERROR") >= 0) {
+                alert("could not complete request");
+            } else {
+              window.location.assign("DisplayQuizzes.jsp");
+            }
+        }
+    };
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+}
 function loadQuizResults() {
     let url = "quizResultService/Items";
     let xmlhttp = new XMLHttpRequest();
