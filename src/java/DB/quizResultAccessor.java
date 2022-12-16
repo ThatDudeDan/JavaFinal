@@ -146,7 +146,6 @@ public class quizResultAccessor {
 
     public boolean insertResult(QuizResult obj) {
         boolean success = false;
-        System.out.print(obj.getQuiz() + "This fucks");
         if (!init()) {
             return false;
         }
