@@ -21,7 +21,6 @@
         <h1>Choose a item:</h1>
         <button id="quizShow">Go To Quizzes</button><br>
         <button id="resultsShow">Go To Results</button><br>
-            <script src="js/QuizTakeout.js"></script>
 
     </body>
 </html>
