@@ -113,5 +113,56 @@ public class QuizAccessor {
 
         return result;
     }
+    public static List<Quiz> searchQuizByID(String inID) {
+       List<Quiz> result = new ArrayList<>();
+       inID += "%";
+       System.out.println(inID);
+        try {
+            init();
+            PreparedStatement prep = conn.prepareStatement("select * from quiz where quizID like ?");
+            prep.setString(1, inID);
+            ResultSet rs=prep.executeQuery();
+            while (rs.next()){
+                String id = rs.getString("quizID");
+                String title = rs.getString("quizTitle");
+                List<Question> q = QuestionAccessor.getQuestionsByID(id);
+                List<Integer> points = QuizQuestionAccessor.getPoints(id);
+                Quiz item = new Quiz(id, title, q, points);
+                //System.out.println(item.getQuestions());
+                result.add(item);
+            }
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return result;
+    }
+    
+    public static List<Quiz> searchQuizByText(String inText) {
+       List<Quiz> result = new ArrayList<>();
+       inText += "%";
+       System.out.println(inText);
+        try {
+            init();
+            PreparedStatement prep = conn.prepareStatement("select * from quiz join quizquestion on quiz quizID = quizquestion.quizid join question on quizquestion.questionID = question.questionID where questionText like ?");
+            prep.setString(1, inText);
+            ResultSet rs=prep.executeQuery();
+            while (rs.next()){
+                String id = rs.getString("quizID");
+                String title = rs.getString("quizTitle");
+                List<Question> q = QuestionAccessor.getQuestionsByID(id);
+                List<Integer> points = QuizQuestionAccessor.getPoints(id);
+                Quiz item = new Quiz(id, title, q, points);
+                //System.out.println(item.getQuestions());
+                result.add(item);
+            }
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return result;
+    }    
 } 
 
