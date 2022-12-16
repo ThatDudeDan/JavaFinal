@@ -15,7 +15,7 @@
         
     </head>
     <body>
-        <a href="DisplayResults.jsp">Display</a>
+        <a href="DisplayResults.jsp"><button>Display</button></a>
         <div id="ResultScreen"></div>
     </body>
     <link rel="stylesheet" href="style/style.css">
