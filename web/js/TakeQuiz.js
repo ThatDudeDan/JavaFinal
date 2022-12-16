@@ -120,35 +120,29 @@ function QuizQuestion(obj, j)
 
 function quizSubmit()
 {
+    
     console.log(startTime, endtime);
     let userAnswers = [];
     let correct = 0;
     console.log("Test");
     let length = quiz["quizQuestions"].length;
+    answers[length-1] = document.querySelector("input[name=" + "Q" + (length-1) + "]:checked").value;
+    document.querySelectorAll("input[name=" + "Q" + CurrentQuestion + "]")[Number(answers[length-1])].checked = true;
     console.log(length);
-    for (i = 0; i < length; i++)
-    {
-        let item = `input[name="Q${i}"]:checked`;
-        let choice = document.querySelector(item);
-        if (choice === null)
+    
+        if (answers.length < length)
         {
-            console.log("Answer the quizQuestions")
+            console.log("Answer the quizQuestions");
             return;
         }
-    }
     for (i = 0; i < length; i++)
     {
-        let item = `input[name="Q${i}"]:checked`;
-        let choice = document.querySelector(item);
-        console.log(choice);
-        userAnswers.push(Number(choice.value));
-        if (Number(choice.value) === quiz["quizQuestions"][i]["answer"])
+        if (Number(answers[i]) === quiz["quizQuestions"][i]["answer"])
         {
             correct += 1;
             console.log("Correct");
         } else
         {
-            console.log(choice.value);
             console.log(quiz["quizQuestions"][i]["answer"]);
             //console.log("Holy fuck you got it wrong.");
         }
@@ -158,51 +152,48 @@ function quizSubmit()
     endtime = new Date();
     //Bunch of code, have fun.
     let quizID = urlParams.get('quizID');
-    let user = document.querySelector("#user").innerHTML;
+    let user = document.querySelector("#User").innerHTML;
     obj = {
-        "resultsID": 5325,
-        "quizID": quizID,
+        "resultID": "QR-2142",
+        "quizID": quiz["quizId"],
         "username": user,
-        "userAnswers": userAnswers.join("|"),
+        "userAnswers": answers,
         "startTime": getTimeStamp(startTime),
         "endTime": getTimeStamp(endtime),
         "scoreNumerator": correct,
-        "scoreDenominator": length
+        "scoreDenumerator": length
     };
     console.log(obj);
     pushResults(obj);
 }
-function loginUser() {
-    let user = document.querySelector("#usernameInput");
-    let password = document.querySelector("#passwordInput");
-    if (password.value === "")
-    {
-        alert("Please enter a password.");
-        password.focus();
-        return;
-    }
-    let url = "userService/Items/" + "?user=" + user.value + "&?pass=" + password.value;
-    console.log(user, password);
+
+function pushResults(obj)
+{
+    let url = "quizResultService/Items";
     let xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
             let resp = xmlhttp.responseText;
             console.log(resp);
-            if (resp.includes("Invalid")) {
-                alert("Please enter a valid username or password.");
-                user.value = "";
-                password.value = "";
-                user.focus();
-            } else {
-                window.location.assign("mainMenu.jsp");
+            if (resp.includes("QR")) {
+                id = resp.split("-");
+                console.log(id[1]);
+                window.location.assign("ResultTake.jsp?resultsID=" + "QR-"+ (Number(id[1]) -1));
             }
         }
-    };
-    xmlhttp.open("GET", url, true);
-    xmlhttp.send();
-}
-//FUCK
+    }
+    xmlhttp.open("POST", url, true); // method is either POST or PUT
+    xmlhttp.send(JSON.stringify(obj));
+    }
+//function getResultID(resp)
+//{
+//    console.log("Got here");
+//    let data = JSON.parse(resp);
+//    id = data[0]["resultsID"];
+//    console.log(id);
+//    sendResult(id);
+//}
 
-//FUCK
+
 makeQuiz();
 	

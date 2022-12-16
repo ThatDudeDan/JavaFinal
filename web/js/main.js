@@ -3,15 +3,20 @@
  * except that JSON is the data exchange format.
  * Therefore, any back end will do - Java, PHP, etc.
  */
-let addOrUpdate;
 
 window.onload = function () {
 
     // add event handlers for buttons
     // add event handler for selections on the table
     document.querySelector("#resultsShow").addEventListener("click", loadQuizResults);
-    document.querySelector("#quizShow").addEventListener("click", loadQuizes);
+    document.querySelector("#quizShow").addEventListener("click", loadQuiz);
 };
+function loadQuiz()
+{
+    console.log("Damn");
+    let id = "QZ-1004";
+    window.location.assign("QuizTake.jsp" + "?quizid=" + id);
+}
 
 function clearSelections() {
     let trs = document.querySelectorAll("tr");
@@ -28,23 +33,6 @@ function handleRowClick(e) {
     // enable Delete and Update buttons
     document.querySelector("#DeleteButton").removeAttribute("disabled");
     document.querySelector("#UpdateButton").removeAttribute("disabled");
-}
-function loadQuizes () {
-    let url = "QuizService/Items";
-    let xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-        if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-            let resp = xmlhttp.responseText;
-            console.log(resp + "A");
-            if (resp.search("ERROR") >= 0) {
-                alert("could not complete request");
-            } else {
-              window.location.assign("DisplayQuizzes.jsp");
-            }
-        }
-    };
-    xmlhttp.open("GET", url, true);
-    xmlhttp.send();
 }
 function loadQuizResults() {
     let url = "quizResultService/Items";
