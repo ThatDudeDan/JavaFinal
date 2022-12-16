@@ -117,6 +117,7 @@ function QuizQuestion(obj, j)
     let choice1 = obj["choices"];
     let choices = choice1.split("|");
     let choicesLength = choices.length;
+    
     for (i = 0; i < choicesLength; i++)
     {
         list += `<li><input type="radio" id="quizChoice${j}" name="Q${j}" value="${i}">${choices[i]}</input></li>`;
