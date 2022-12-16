@@ -4,6 +4,7 @@
  */
 package API;
 
+import DB.QuizAccessor;
 import DB.quizResultAccessor;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,7 +17,14 @@ import entity.QuizResult;
 import java.util.List;
 import com.google.gson.Gson;
 import DB.quizResultAccessor;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.mysql.cj.Session;
+import entity.Quiz;
+import java.sql.Array;
+import java.sql.Timestamp;
+import java.util.Arrays;
+import java.util.Scanner;
 import javax.servlet.http.HttpSession;
 /**
  *
@@ -63,12 +71,19 @@ public class QuizResultService extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try (PrintWriter out = response.getWriter()) {
+         if(request.getPathInfo()==null){
             DB.quizResultAccessor qra = new quizResultAccessor();
             List<QuizResult> allItems = qra.getQuizResultsbyQuery();
             HttpSession sesh = request.getSession();
             sesh.setAttribute("allQuizResults", allItems);
-           
+
+            }
+        try (PrintWriter out = response.getWriter()) {
+               DB.quizResultAccessor qra = new quizResultAccessor();
+               
+               QuizResult result = qra.getQuizResultsByID(request.getPathInfo().substring(1));
+                Gson gson = new Gson();
+                out.print(gson.toJson(result));
         }
         catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -86,7 +101,31 @@ public class QuizResultService extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try (PrintWriter out = response.getWriter()) {        
+               DB.quizResultAccessor qra = new quizResultAccessor();
+                Gson g = new Gson();
+                Scanner sc = new Scanner(request.getReader());
+                String jsonData = sc.nextLine();
+                JsonObject jobj = new Gson().fromJson(jsonData, JsonObject.class);
+                String quizID = jobj.get("quizID").toString().replaceAll("\"", "");
+                String username = jobj.get("username").toString().replaceAll("\"", "");
+                String userTemp = jobj.get("userAnswers").toString().replaceAll("\"", "").replace("[","").replace("]", "");
+                String[] userT = userTemp.split(",");
+                List<String> userArray = Arrays.asList(userT);
+                Timestamp startTemp = Timestamp.valueOf(jobj.get("startTime").toString().replaceAll("\"", ""));
+                Timestamp endTemp =  Timestamp.valueOf(jobj.get("endTime").toString().replaceAll("\"", ""));
+                int scoreNum = Integer.parseInt(jobj.get("scoreNumerator").toString());
+                int scoreDim = Integer.parseInt(jobj.get("scoreDenumerator").toString());
+                //System.out.print(startTemp);
+                System.out.print(jsonData);
+                System.out.print(jsonData);
+                QuizResult results = new QuizResult(qra.getResultCount(), quizID, username,userArray, startTemp,endTemp,scoreNum,scoreDim);
+                boolean bool = qra.insertResult(results);
+                out.println(qra.getResultCount());
+        }
+        catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     /**
