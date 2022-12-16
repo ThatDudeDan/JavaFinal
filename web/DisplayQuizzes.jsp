@@ -15,8 +15,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <script src="js/logout.js"></script>
-        <script src="js/displayQuizStuff.js"></script>'
         <link rel="stylesheet" href="style/style.css">
+        
     </head>
     <body>
         <button id="logoutBtn">Logout</button>
@@ -31,9 +31,8 @@
                 <option value="text">Text</option>
             </select>
             <button id="searchBtn">Search</button><button id="resetBtn">Reset</button>
-            <tr><th>QuizID</th><th>Quiz Title</th><th>Number of Questions</th><th>Points</th><th>Do Quiz</th>
+            <tr><th>QuizID</th><th>Quiz Title</th><th>Number of Questions</th><th>Points</th>
                         <%
-                            int count = 0;
                             for (Quiz m : quizzes) {
                             int total = 0;
                             for (int i = 0; i < m.getPoints().size(); i++) {
@@ -45,9 +44,11 @@
                     <td><%= m.getQuizTitle() %></td>
                     <td><%= m.getQuestions().size() %></td>
                     <td><%= total %></td>
-                    <td><input id="quiz<%= count %>" value="<%= m.getQuizId() %>" class="hidden"><button>Do quiz</button></td>
+                    <td><button id="doQuiz">Do quiz</button></td>
                 </tr>
-                <% count++; } %>
+               <% } %>
             </table>
+            
+            <script src="js/displayQuizStuff.js"></script>
     </body>
 </html>
