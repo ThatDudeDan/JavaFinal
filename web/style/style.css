@@ -2,6 +2,9 @@ tr
 {
     transition: all 0.4s;
 }
+a{
+    color:white;
+}
 p {
     font-size: 16px;
     font-weight: bold;
