@@ -30,9 +30,10 @@
                 <option value="id">Quiz ID</option>
                 <option value="text">Text</option>
             </select>
-            <button id="searchBtn"></button><button id="resetBtn">Reset</button>
+            <button id="searchBtn">Search</button><button id="resetBtn">Reset</button>
             <tr><th>QuizID</th><th>Quiz Title</th><th>Number of Questions</th><th>Points</th><th>Do Quiz</th>
                         <%
+                            int count = 0;
                             for (Quiz m : quizzes) {
                             int total = 0;
                             for (int i = 0; i < m.getPoints().size(); i++) {
@@ -44,9 +45,9 @@
                     <td><%= m.getQuizTitle() %></td>
                     <td><%= m.getQuestions().size() %></td>
                     <td><%= total %></td>
-                    <td><input id="quidID" value="<%= m.getQuizId() %>" class="hidden"><button>Do quiz</button></td>
+                    <td><input id="quiz<%= count %>" value="<%= m.getQuizId() %>" class="hidden"><button>Do quiz</button></td>
                 </tr>
-                <% } %>
+                <% count++; } %>
             </table>
     </body>
 </html>
