@@ -71,37 +71,39 @@ function buildQuiz()
     console.log("------------")
     console.log(quiz);
     console.log(results);
+      let text=""
     //Place boxes of each quizQuestions.
     let box = document.querySelector("#ResultScreen");
     console.log(quiz["quizQuestions"].length);
-    box.innerHTML += "<p>" + "User: " + results["username"] + "||Results ID: " + results["resultId"] + "||Quiz Title: " + quiz["quizTitle"] + "</p>";
+    text += "<p>" + "User: " + results["username"] + "||Results ID: " + results["resultId"] + "||Quiz Title: " + quiz["quizTitle"] + "</p>";
     for (let i = 0; i < quiz["quizQuestions"].length; i++)
     {
+          text+="<div class='data'>"
         let userAnswers = results["userAnswers"];
         let userAnswerCurrent = userAnswers[i];
         let answer =  Number(quiz["quizQuestions"][i]["answer"]);
-        box.innerHTML += "<p>" + quiz["quizQuestions"][i]["questionText"] + "</p>" + "<br>";
-        box.innerHTML += `<div id="choices${i}"></div>`;
+        text += "<p>" + quiz["quizQuestions"][i]["questionText"] + "</p>" + "<br>";
+        text += `<div id="choices${i}">`;
         let id = `#choices${i}`;
-        let lake = document.querySelector(`#choices${i}`);
         let choices = quiz["quizQuestions"][i]["choices"];
         console.log(choices);
         let ch = choices.split("|");
         console.log(ch);
-        lake.innerHTML += "<ul class=`choicesSnack`>" + addChoices(ch,id) + "</ul>";
-        box.innerHTML += "<p>The answer is: " + ch[answer] + "</p>";
-        box.innerHTML += "<p>The user answered: " + ch[userAnswerCurrent] + "</p>";
+        text += "<ol class=`choicesSnack` type='a'>" + addChoices(ch,id) + "</ol></div>";
+        text += "<p>The answer is: " + ch[answer] + "</p>";
+        text += "<p>The user answered: " + ch[userAnswerCurrent] + "</p>";
         if (ch[answer] === ch[userAnswerCurrent])
         {
-            box.innerHTML += "The user got the right answer!";
+            text += "The user got the right answer!";
         }
         else
         {
-          box.innerHTML += "The user got the wrong answer.";
+          text += "The user got the wrong answer.";
         }
-        
+        text+="</div>
     }
-    box.innerHTML += "<br>" +"<div id='ResultsScore'>" + "The total score of the quiz: " + results["scoreNumerator"] + "/" + results["scoreDenumerator"] + "</div>";
+    text += "<br>" +"<div id='ResultsScore'>" + "The total score of the quiz: " + results["scoreNumerator"] + "/" + results["scoreDenumerator"] + "</div>";
+      box.innerHTML=text
 }
 
 function addChoices(obj)
