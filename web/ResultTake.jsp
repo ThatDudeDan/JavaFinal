@@ -11,10 +11,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <script src="js/QuizResult.js"></script>
+        <link rel="stylesheet" href="style/style.css">
+        
     </head>
     <body>
         <div id="ResultScreen"></div>
-        <button id="resultReturn">Return to results page</button>
-
     </body>
+    <link rel="stylesheet" href="style/style.css">
 </html>
