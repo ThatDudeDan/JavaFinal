@@ -62,7 +62,7 @@ public class userService extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
        try (PrintWriter out = response.getWriter()) {
-            DB.userAccessor qua = new userAccessor();
+            userAccessor qua = new userAccessor();
             System.out.print(out);
             QuizAppUser user = qua.getUserByID(request.getParameter("user"));
             System.out.println("==================");

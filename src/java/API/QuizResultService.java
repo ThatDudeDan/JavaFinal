@@ -68,6 +68,7 @@ public class QuizResultService extends HttpServlet {
             List<QuizResult> allItems = qra.getQuizResultsbyQuery();
             HttpSession sesh = request.getSession();
             sesh.setAttribute("allQuizResults", allItems);
+           
         }
         catch (Exception ex) {
             System.out.println(ex.getMessage());
