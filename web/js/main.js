@@ -10,6 +10,7 @@ window.onload = function () {
     // add event handlers for buttons
     // add event handler for selections on the table
     document.querySelector("#resultsShow").addEventListener("click", loadQuizResults);
+    document.querySelector("#quizShow").addEventListener("click", loadQuizes);
 };
 
 function clearSelections() {
