@@ -8,11 +8,11 @@ public static String getConnectionString()
 }
 public static String getUser()
     {
-        return "app";
+        return "root";
     }
 public static String getPassword()
     {
-        return "app";
+        return "mysql";
     }
     
 } // end class MenuItem

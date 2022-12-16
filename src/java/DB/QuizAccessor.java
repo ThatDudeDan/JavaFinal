@@ -89,5 +89,29 @@ public class QuizAccessor {
 
         return result;
     }
+        public static Quiz getQuizById(String qid) {
+       Quiz result = null;
+
+        try {
+            init();
+            PreparedStatement prep = conn.prepareStatement("select * from quiz where quizid = ?");
+            prep.setString(1, qid);
+            ResultSet rs=prep.executeQuery();
+            while (rs.next()){
+                String id = rs.getString("quizID");
+                String title = rs.getString("quizTitle");
+                List<Question> q = QuestionAccessor.getQuestionsByID(id);
+                List<Integer> points = QuizQuestionAccessor.getPoints(id);
+                Quiz item = new Quiz(id, title, q, points);
+                //System.out.println(item.getQuestions());
+                result = item;
+            }
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return result;
+    }
 } 
 
